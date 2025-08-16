@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Photo: Identifiable, Hashable {
+struct Photo: Codable,Identifiable, Hashable {
     let id: String
     let slug: String
     let createdAt: Date
@@ -20,7 +20,7 @@ struct Photo: Identifiable, Hashable {
     let urls: Self.PhotoURLs
 
     
-    struct PhotoURLs: Hashable {
+    struct PhotoURLs: Codable,Hashable {
         let raw: String
         let full: String
         let regular: String
