@@ -8,10 +8,11 @@
 import Foundation
 
 struct UnisplashEndpoint {
-    static let endpoint = "https://api.unsplash.com/"
-    static let listPostsPath = "photos/"
+    static func fullPath(for: Self.Endpoints) -> String {
+        return Self.Endpoints.RawValue()
+    }
     
-    static var fullPath: String {
-        return "\(endpoint)\(listPostsPath)"
+    enum Endpoints: String {
+        case listPhotos = "https://api.unsplash.com/photos"
     }
 }

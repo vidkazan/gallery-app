@@ -12,14 +12,12 @@ struct Photo: Identifiable, Hashable {
     let slug: String
     let createdAt: Date
     let updatedAt: Date
-    let promotedAt: Date?
     let width: Int
     let height: Int
-    let color: String
+    let color: String?
     let description: String?
     let altDescription: String?
     let urls: Self.PhotoURLs
-    let isFavourite: Bool = false
 
     
     struct PhotoURLs: Hashable {

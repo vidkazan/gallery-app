@@ -7,12 +7,11 @@
 
 import Foundation
 
-struct ListPhotosResponse: Codable {
+struct PhotoResponse: Codable {
     let id: String
     let slug: String
     let createdAt: Date
     let updatedAt: Date
-    let promotedAt: Date?
     let width: Int
     let height: Int
     let color: String
@@ -25,7 +24,6 @@ struct ListPhotosResponse: Codable {
         case slug
         case createdAt = "created_at"
         case updatedAt = "updated_at"
-        case promotedAt = "promoted_at"
         case width
         case height
         case color
@@ -50,5 +48,29 @@ struct PhotoURLs: Codable {
         case small
         case thumb
         case smallS3 = "small_s3"
+    }
+}
+
+extension PhotoResponse {
+    func toEntity() -> Photo {
+        Photo(
+            id: id,
+            slug: slug,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            width: width,
+            height: height,
+            color: color,
+            description: description,
+            altDescription: altDescription,
+            urls: Photo.PhotoURLs(
+                raw: urls.raw,
+                full: urls.full,
+                regular: urls.regular,
+                small: urls.small,
+                thumb: urls.thumb,
+                smallS3: urls.smallS3
+            )
+        )
     }
 }
