@@ -103,7 +103,6 @@ struct HTTPClient {
             ### httpResponse:
             ### url: \(String(describing: httpResponse.url))
             ### code: \(httpResponse.statusCode)
-            ### responseBody: \(String(describing: String(data: data, encoding: .utf8)))
             """
         )
 

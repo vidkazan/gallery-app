@@ -8,8 +8,8 @@
 import Foundation
 
 struct UnisplashEndpoint {
-    static func fullPath(for: Self.Endpoints) -> String {
-        return Self.Endpoints.RawValue()
+    static func fullPath(for endpoint: Self.Endpoints) -> String {
+        return endpoint.rawValue
     }
     
     enum Endpoints: String {
