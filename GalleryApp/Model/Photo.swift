@@ -7,25 +7,26 @@
 
 import Foundation
 
-struct Photo: Codable,Identifiable, Hashable {
-    let id: String
+struct Photo: Codable, Hashable, Identifiable{
+    var id = UUID()
+    let identifier: String
     let slug: String
-    let createdAt: Date
-    let updatedAt: Date
-    let width: Int
-    let height: Int
-    let color: String?
     let description: String?
     let altDescription: String?
     let urls: Self.PhotoURLs
 
+    init(id: String, slug: String, description: String?, altDescription: String?, urls: Self.PhotoURLs) {
+        self.identifier = id
+        self.slug = slug
+        self.description = description
+        self.altDescription = altDescription
+        self.urls = urls
+    }
     
     struct PhotoURLs: Codable,Hashable {
         let raw: String
         let full: String
         let regular: String
-        let small: String
         let thumb: String
-        let smallS3: String
     }
 }
