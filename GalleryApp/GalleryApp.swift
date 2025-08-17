@@ -8,13 +8,22 @@
 import SwiftUI
 
 @main
-struct GalleryAppApp: App {
-    let persistenceController = PersistenceController.shared
-
+struct GalleryApp: App {
     var body: some Scene {
+        let photosRepo : PhotosRepository = UnsplashPhotosRepository()
+        let router: Router<AppRoute> = .init()
+        let favorites = LocalPhotoProvider()
+        let builder: GalleryAppViewBuilder = .init(
+            photosRepo: photosRepo,
+            router: router,
+            localStorage: favorites
+        )
+        
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            MainAppView(
+                router: router,
+                viewBuilder: builder
+            )
         }
     }
 }
