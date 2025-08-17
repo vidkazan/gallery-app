@@ -9,25 +9,24 @@ import Foundation
 
 
 protocol PhotosRepository {
-    func listPhotos(page: Int, perPage: Int) async throws -> Result<[Photo], Error>
+    func listPhotos(page: Int, perPage: Int) async -> Result<[Photo], HTTPClient.ResponseError>
 }
 
 final class UnsplashPhotosRepository: PhotosRepository {
     private let apiKey: String
     private let client: HTTPClient
 
-    init(apiKey: String, session: HTTPClient) {
-        self.apiKey = apiKey
-        self.client = HTTPClient(session: .shared)
+    init(session: HTTPClient = HTTPClient(session: .shared)) {
+        self.apiKey = AppConfig.unsplashKey
+        self.client = session
     }
 
-    func listPhotos(page: Int, perPage: Int) async throws -> Result<[Photo], Error> {
+    func listPhotos(page: Int, perPage: Int) async -> Result<[Photo], HTTPClient.ResponseError> {
         var comps = URLComponents(string: UnisplashEndpoint.fullPath(for: .listPhotos))!
         comps.queryItems = [
             .init(name: "page", value: String(page)),
             .init(name: "per_page", value: String(perPage)),
         ]
-        
         let result : Result<[PhotoResponse], HTTPClient.ResponseError> = await self.client.handleRequest(
             url: comps.url!,
             method: .GET,
