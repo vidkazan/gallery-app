@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Route: Hashable {
+enum AppRoute: Hashable {
     case gallery
     case detail(photo: Photo)
     case favorites
