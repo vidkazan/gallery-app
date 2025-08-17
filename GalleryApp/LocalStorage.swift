@@ -17,7 +17,7 @@ final class LocalPhotoProvider: ObservableObject {
     }
     
     func isFavorite(_ id: String) -> Bool {
-        favorites.contains { $0.id == id }
+        favorites.contains { $0.identifier == id }
     }
     
     func toggleFavorite(_ photo: Photo) {
