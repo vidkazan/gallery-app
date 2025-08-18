@@ -30,8 +30,11 @@ final class GalleryViewModel: ObservableObject {
         self.router = router
     }
 
-    func pushToPhotoDetails(photo: Photo) {
-        self.router.push(.detail(photo: photo))
+    func pushToPhotoDetails(index: Int) {
+        self.router.push(.detail(index: index))
+    }
+    func filterFavourites() {
+        
     }
     
     func reload() {
@@ -48,8 +51,8 @@ final class GalleryViewModel: ObservableObject {
         favorites.isFavorite(id)
     }
 
-    func toggleFavorite(_ photo: Photo) {
-        favorites.toggleFavorite(photo)
+    func toggleFavorite(_ id: String) {
+        favorites.toggleFavorite(id)
         objectWillChange.send()
     }
 
@@ -60,7 +63,7 @@ final class GalleryViewModel: ObservableObject {
         if
             let currentItem,
             let idx = photos.firstIndex(of: currentItem) {
-            guard idx >= photos.count - 6 else {
+            guard idx >= photos.count - 10 else {
                 return
             }
         } else if !photos.isEmpty {
