@@ -8,7 +8,7 @@
 import Foundation
 
 final class LocalPhotoProvider: ObservableObject {
-    @Published private(set) var favorites: [Photo] = []
+    @Published private(set) var favorites: [String] = []
     private let key = "favorite_photos"
     private let defaults = UserDefaults.standard
     
@@ -17,14 +17,14 @@ final class LocalPhotoProvider: ObservableObject {
     }
     
     func isFavorite(_ id: String) -> Bool {
-        favorites.contains { $0.identifier == id }
+        favorites.contains { $0 == id }
     }
     
-    func toggleFavorite(_ photo: Photo) {
-        if let idx = favorites.firstIndex(where: { $0.id == photo.id }) {
-            favorites.remove(at: idx)
+    func toggleFavorite(_ id: String) {
+        if let foundIndex = favorites.firstIndex(where: { $0 == id }) {
+            favorites.remove(at: foundIndex)
         } else {
-            favorites.append(photo)
+            favorites.append(id)
         }
         save()
     }
@@ -37,7 +37,7 @@ final class LocalPhotoProvider: ObservableObject {
     
     private func load() {
         guard let data = defaults.data(forKey: key),
-              let decoded = try? JSONDecoder().decode([Photo].self, from: data) else {
+              let decoded = try? JSONDecoder().decode([String].self, from: data) else {
             favorites = []
             return
         }

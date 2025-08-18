@@ -9,6 +9,6 @@ import Foundation
 
 enum AppRoute: Hashable {
     case gallery
-    case detail(photo: Photo)
+    case detail(index: Int)
     case favorites
 }

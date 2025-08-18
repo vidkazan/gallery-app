@@ -31,7 +31,7 @@ struct MainAppView: View {
     private func buildViews(view: AppRoute) -> some View {
         switch view {
             case .gallery: viewBuilder.createGalleryView()
-            case .detail(let photo): Text("WIP")
+            case .detail(let index): viewBuilder.createDetailsView(index: index)
             case .favorites: Text("WIP")
         }
     }

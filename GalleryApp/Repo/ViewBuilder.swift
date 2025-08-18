@@ -13,20 +13,28 @@ final class GalleryAppViewBuilder {
     let photosRepo: PhotosRepository
     let router: Router<AppRoute>
     let localStorage: LocalPhotoProvider
-
+    private lazy var galleryVM = GalleryViewModel(
+      repository: photosRepo,
+      favorites: localStorage,
+      router: router
+    )
+    
+    
     init(photosRepo: PhotosRepository, router: Router<AppRoute>, localStorage: LocalPhotoProvider) {
         self.photosRepo = photosRepo
         self.router = router
         self.localStorage = localStorage
     }
-
+    
     func createGalleryView() -> some View {
         GalleryView(
-            viewModel: GalleryViewModel(
-                repository: self.photosRepo,
-                favorites: self.localStorage,
-                router: self.router
-            )
+            viewModel: self.galleryVM
         )
+    }
+    func createDetailsView(index : Int) -> some View {
+        PhotoDetailView(viewModel: DetailViewModel(
+            startIndex: index,
+            gallery: self.galleryVM
+        ))
     }
 }
