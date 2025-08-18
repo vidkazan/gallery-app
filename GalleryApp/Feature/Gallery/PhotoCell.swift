@@ -7,13 +7,14 @@
 
 import Foundation
 import SwiftUI
+import CachedAsyncImage
 
 struct PhotoCell: View {
     let photo: Photo
     let isFavorite: Bool
 
     var body: some View {
-        AsyncImage(url: URL(string: photo.urls.thumb)) { phase in
+        CachedAsyncImage(url: URL(string: photo.urls.thumb)) { phase in
             switch phase {
             case .empty:
                 Rectangle()
