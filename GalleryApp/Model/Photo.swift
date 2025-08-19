@@ -24,7 +24,7 @@ struct Photo: Codable, Hashable, Identifiable{
     }
     
     struct PhotoURLs: Codable,Hashable {
-        let raw: String
+        let raw: String?
         let full: String
         let regular: String
         let thumb: String
