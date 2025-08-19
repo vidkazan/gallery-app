@@ -22,6 +22,12 @@ enum LocalStorageError: Error {
     }
 }
 
+protocol LocalPhotoProvider: AnyObject {
+    func isFavorite(_ id: String) -> Bool
+    func allFavorites() -> [Photo]
+    func toggleFavorite(_ photo: Photo) async
+}
+
 final class LocalPhotoProvider: ObservableObject {
     @Published private(set) var favorites: [String: Photo] = [:]
     private let key = "favorite_photos"
@@ -33,6 +39,10 @@ final class LocalPhotoProvider: ObservableObject {
     
     func isFavorite(_ id: String) -> Bool {
         favorites.contains { $0.key == id }
+    }
+    
+    func allFavorites() -> [Photo] {
+        return Array(self.favorites.values)
     }
     
     func toggleFavorite(_ photo: Photo) async {
@@ -65,7 +75,7 @@ final class LocalPhotoProvider: ObservableObject {
     }
 }
 
-extension LocalPhotoProvider {
+private extension LocalPhotoProvider {
     func saveImage(_ photoUrl: URL) async -> Result<URL, LocalStorageError>  {
         let httpClient = HTTPClient(session: .shared)
         
