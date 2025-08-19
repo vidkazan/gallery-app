@@ -12,20 +12,28 @@ import SwiftUI
 final class GalleryAppViewBuilder {
     let photosRepo: PhotosRepository
     let router: Router<AppRoute>
-    let localStorage: LocalPhotoProvider
     private lazy var galleryVM = GalleryViewModel(
       repository: photosRepo,
-      favorites: localStorage,
-      router: router
+      favorites: UserDefaultsPhotoProvider(),
+      router: router,
     )
     
+    private lazy var userDefaultsPhotoProvider = UserDefaultsPhotoProvider()
     
-    init(photosRepo: PhotosRepository, router: Router<AppRoute>, localStorage: LocalPhotoProvider) {
+    init(photosRepo: PhotosRepository, router: Router<AppRoute>) {
         self.photosRepo = photosRepo
         self.router = router
-        self.localStorage = localStorage
     }
     
+    func createFavouritesView() -> some View {
+        GalleryView(
+            viewModel: GalleryViewModel(
+                repository: self.userDefaultsPhotoProvider,
+                favorites: self.userDefaultsPhotoProvider,
+                router: self.router
+            )
+        )
+    }
     func createGalleryView() -> some View {
         GalleryView(
             viewModel: self.galleryVM

@@ -32,7 +32,7 @@ struct MainAppView: View {
         switch view {
             case .gallery: viewBuilder.createGalleryView()
             case .detail(let index): viewBuilder.createDetailsView(index: index)
-            case .favorites: Text("WIP")
+            case .favorites: viewBuilder.createFavouritesView()
         }
     }
 }

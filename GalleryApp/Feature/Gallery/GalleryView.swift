@@ -45,7 +45,7 @@ struct GalleryView: View {
                         ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     Button(action: {
-                        
+                        vm.pushToFavourites()
                     }, label: {
                         Label("heart", systemImage: "heart")
                     })

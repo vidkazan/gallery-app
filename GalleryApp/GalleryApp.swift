@@ -10,13 +10,11 @@ import SwiftUI
 @main
 struct GalleryApp: App {
     var body: some Scene {
-        let photosRepo : PhotosRepository = UnsplashPhotosRepository()
+        let photosRepo : PhotosRepository = RemotePhotosRepository()
         let router: Router<AppRoute> = .init()
-        let favorites = LocalPhotoProvider()
         let builder: GalleryAppViewBuilder = .init(
             photosRepo: photosRepo,
-            router: router,
-            localStorage: favorites
+            router: router
         )
         
         WindowGroup {

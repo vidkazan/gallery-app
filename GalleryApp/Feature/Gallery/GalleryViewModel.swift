@@ -15,14 +15,14 @@ final class GalleryViewModel: ObservableObject {
     
     private let router: Router<AppRoute>
     private let repository: PhotosRepository
-    private let favorites: LocalPhotoProvider
+    private let favorites: FavouritesController
     private var page = 1
     private let perPage = 30
     private var reachedEnd = false
 
     init(
         repository: PhotosRepository,
-        favorites: LocalPhotoProvider,
+        favorites: FavouritesController,
         router: Router<AppRoute>
     ) {
         self.repository = repository
@@ -33,8 +33,8 @@ final class GalleryViewModel: ObservableObject {
     func pushToPhotoDetails(index: Int) {
         self.router.push(.detail(index: index))
     }
-    func filterFavourites() {
-        
+    func pushToFavourites() {
+        self.router.push(.favorites)
     }
     
     func reload() {
