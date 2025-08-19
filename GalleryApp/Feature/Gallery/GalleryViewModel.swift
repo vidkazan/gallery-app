@@ -42,7 +42,7 @@ final class GalleryViewModel: ObservableObject {
         reachedEnd = false
         photos.removeAll()
         error = nil
-        Task {
+        Task(priority: .background) {
             await loadMoreIfNeeded(currentItem: nil)
         }
     }
@@ -51,8 +51,8 @@ final class GalleryViewModel: ObservableObject {
         favorites.isFavorite(id)
     }
 
-    func toggleFavorite(_ id: String) {
-        favorites.toggleFavorite(id)
+    func toggleFavorite(_ photo: Photo) async {
+        await favorites.toggleFavorite(photo)
         objectWillChange.send()
     }
 

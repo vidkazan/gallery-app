@@ -25,15 +25,14 @@ struct GalleryView: View {
                         photo: photo,
                         isFavorite: vm.isFavorite(photo.identifier)
                     )
-                    .onAppear { Task {
-                        await vm.loadMoreIfNeeded(currentItem: photo)
-                    }}
+                    .onAppear {
+                        Task(priority: .background) {
+                            await vm.loadMoreIfNeeded(currentItem: photo)
+                        }
+                    }
                     .onTapGesture {
                         vm.pushToPhotoDetails(index: index)
                     }
-                }
-                if vm.isLoading {
-                    ProgressView().frame(maxWidth: .infinity)
                 }
             }
             .padding(8)
@@ -42,6 +41,9 @@ struct GalleryView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing, content: {
                 HStack {
+                    if vm.isLoading {
+                        ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                     Button(action: {
                         
                     }, label: {

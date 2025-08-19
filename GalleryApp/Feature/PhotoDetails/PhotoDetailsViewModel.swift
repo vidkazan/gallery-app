@@ -31,8 +31,8 @@ final class DetailViewModel: ObservableObject {
         gallery.isFavorite(id)
     }
 
-    func toggleFavorite(_ id: String) {
-        gallery.toggleFavorite(id)
+    func toggleFavorite(_ photo: Photo) async {
+        await gallery.toggleFavorite(photo)
         objectWillChange.send()
     }
 

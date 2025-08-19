@@ -79,7 +79,9 @@ extension PhotoDetailView {
                             .foregroundStyle(.primary)
                         Spacer()
                         FavouritesButton(active: vm.isFavorite(photo.identifier)) {
-                            vm.toggleFavorite(photo.identifier)
+                            Task(priority: .background) {
+                                await vm.toggleFavorite(photo)
+                            }
                         }
                     }
                     if !photo.slug.isEmpty {
