@@ -41,8 +41,8 @@ struct PhotoCell: View {
         .overlay(alignment: .bottomTrailing, content: {
             if isFavorite {
                 Image(systemName: "heart.fill")
+                    .foregroundStyle(.white)
                     .padding(6)
-                    .background(Color.secondary, in: Circle())
                     .padding(6)
             }
         })

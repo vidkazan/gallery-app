@@ -18,9 +18,9 @@ struct FavouritesButton: View {
             self.action()
         } label: {
             Image(systemName: self.active ? "heart.fill" : "heart")
+                .foregroundStyle(.white)
                 .imageScale(.large)
                 .padding(8)
-                .background(.ultraThinMaterial, in: Circle())
         }
         .buttonStyle(.plain)
     }
