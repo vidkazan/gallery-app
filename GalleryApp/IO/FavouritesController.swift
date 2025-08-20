@@ -13,16 +13,4 @@ protocol FavouritesController {
     func toggleFavorite(_ photo: Photo) async
 }
 
-enum FavouritesControllerError: Error {
-    case failedToLoadImage
-    case failedToSaveImage
-    
-    var description: String {
-        switch self {
-            case .failedToLoadImage:
-                return "Failed to load image"
-            case .failedToSaveImage:
-                return "Failed to save image"
-        }
-    }
-}
+

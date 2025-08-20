@@ -54,16 +54,6 @@ struct FavouritesView: View {
             if vm.isLoading {
                 ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            Button(action: {
-                vm.popToGallery()
-            }, label: {
-                Label("heart", systemImage: "heart.fill")
-            })
-            Button(action: {
-                vm.reload()
-            }, label: {
-                Label("reload", systemImage: "arrow.circlepath")
-            })
         }
     }
 }
