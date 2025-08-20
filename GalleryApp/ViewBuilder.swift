@@ -26,8 +26,8 @@ final class GalleryAppViewBuilder {
     }
     
     func createFavouritesView() -> some View {
-        GalleryView(
-            viewModel: GalleryViewModel(
+        FavouritesView(
+            viewModel: FavouritesViewModel(
                 repository: self.userDefaultsPhotoProvider,
                 favorites: self.userDefaultsPhotoProvider,
                 router: self.router

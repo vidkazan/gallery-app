@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class UserDefaultsPhotoProvider {
-    @Published private(set) var favorites: [String: Photo] = [:]
+    private(set) var favorites: [String: Photo] = [:]
     private let key = "favorite_photos"
     private let defaults = UserDefaults.standard
     
@@ -37,13 +37,14 @@ final class UserDefaultsPhotoProvider {
         favorites = decoded
     }
     
-    private  func allFavorites() -> [Photo] {
+    private func allFavorites() -> [Photo] {
+        self.load()
         return Array(self.favorites.values)
     }
 }
 
-extension UserDefaultsPhotoProvider: PhotosRepository {
-    func listPhotos(page: Int, perPage: Int) async -> Result<[Photo], HTTPClient.ResponseError> {
+extension UserDefaultsPhotoProvider: FavouritesRepository {
+    func favourites() async -> Result<[Photo], Error> {
         return .success(self.allFavorites())
     }
 }
@@ -60,6 +61,7 @@ extension UserDefaultsPhotoProvider: FavouritesController {
             favorites[photo.identifier] = photo
         }
         save()
+        self.load()
     }
 }
 
